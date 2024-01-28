@@ -1,0 +1,47 @@
+Restarting the Foreground Service on Reboot
+Sometimes you may want to restart a Foreground Service when the user reboots the system. We can achieve this by using a BroadcastReceiver.
+
+The purpose of the Broadcast Receiver is to send or receive messages from the Android System.
+
+When the user reboots their device, Android will send out a message telling everyone that the system was rebooted. We need to create a BroadcastReceiver to receive that message so we can restart Foreground Service.
+
+To create a BroadcastReceiver, create a new class and have it extend the BroadcastReceiver class.
+
+Since we want to receive the Reboot message when the system is restarted, override the onReceive() method.
+
+public class MyBroadcastReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+    }
+}
+
+Now that we have the BroadcastReceiver class, we need to add the BroadcastReceiver in the manifests file to let the app know about it.
+
+Go to the Manifests file.
+
+(1) Add a receiver element and use the android:name attribute to add the receiver.
+
+(2) Inside the receiver, add an intent filter element to let the app will know what the receiver will be listening for.
+
+(3) Add the BOOT_COIMPLETED action so it’ll listen for when the app is rebooted.
+
+(4) When that is done, enable the RECEIVE_BOOT_COMPLETE permission.
+
+Now go back to the BroadcastReceiver class. In the onReceive() method, check if the action we received from the intent is equal to ACTION_BOOT_COMPLETED. If it is, we want to start the Foreground Service
+
+@Override
+public void onReceive(Context context, Intent intent) {
+   if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+    Intent serviceIntent = new Intent(context,
+      MyForegroundService.class);
+    context.startForegroundService(serviceIntent);
+   }
+}
+
+Note:
+A Background Service is a service that runs only when the app is running so it’ll get terminated when the app is terminated.
+
+A Foreground Service is a service that stays alive even when the app is terminated.
+
+And a Bound Service is a service that runs only if the component it is bound to is still active.

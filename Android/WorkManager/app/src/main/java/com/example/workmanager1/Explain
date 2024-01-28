@@ -1,0 +1,23 @@
+#### `MainActivity.java`:
+
+- **Purpose:**
+  - Implements the main activity of the Android app.
+
+- **Functionality:**
+  1. Initializes UI components, specifically a button.
+  2. Defines constraints for the background task to execute only when charging.
+  3. Creates a `Data` object providing input parameters for the worker.
+  4. Builds a `OneTimeWorkRequest` instance with the specified constraints and input data.
+  5. Sets a click listener on the button to enqueue the work request using `WorkManager`.
+  6. Monitors the status of the work using a `WorkInfo` observer, displaying a toast with the status and output data when the task is finished.
+
+#### `MyWorker.java`:
+
+- **Purpose:**
+  - Implements the background task that will be executed by WorkManager.
+
+- **Functionality:**
+  1. Extends the `Worker` class and overrides the `doWork` method, which runs asynchronously in the background.
+  2. Retrieves input data, performs a counting loop, and logs the count.
+  3. Constructs a `Data` object to send a completion message.
+  4. Returns a `Result.success` indicating the successful completion of the background task.

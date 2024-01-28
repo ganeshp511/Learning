@@ -1,0 +1,10 @@
+ 1. create customViewPagerAdapter class extending FragmentStateAdapter(as we are using viewpager2)
+
+create fragmentlist arraylist of type fragment. 
+createFragment() -> return fragmentList postion
+getItemCount() -> return fragmentList size
+create method for adding fragment having fragment arg and add fragment into fragment arraylist
+
+2. in mainactivity create obj of custom viewpager adapter class pass fragmentmanager instance and lifecycle
+3. add fragment to adapter
+4. setorinatation of adapter and setadapter
