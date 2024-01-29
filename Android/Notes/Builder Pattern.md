@@ -79,6 +79,8 @@ In this example:
 Using the builder pattern in Android can make your code more readable, especially when dealing with classes that have many optional parameters or configurations. It also provides a clear and fluent API for creating instances of your classes.
 
 ------------------------------------------------------------------------------------------------------------------------
+### creating workrequest in workmanager we use same right?
+
 
 Yes, when creating a `WorkRequest` in Android's WorkManager, you typically use a builder pattern as well. The `WorkRequest` itself is an abstract class, and you create instances of it using one of its concrete subclasses: `OneTimeWorkRequest` or `PeriodicWorkRequest`.
 
