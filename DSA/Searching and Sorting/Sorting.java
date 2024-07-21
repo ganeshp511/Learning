@@ -53,11 +53,72 @@ class Sorting {
         }
     }
 
+    static void mergeSort(int[] arr, int start, int end) {
+        if (start >= end) return;
+        //divide array into two subarray
+        if (start < end) {
+            int mid = (start + end) / 2;
+            // Recursively sort first and second halves
+            mergeSort(arr, start, mid);
+            mergeSort(arr, mid + 1, end);
+            // Merge the sorted halves
+            merge(arr, start, mid, end);
+        }
+
+    }
+
+    static void merge(int[] arr, int start, int mid, int end) {
+        int leftSubArraySize = mid - start + 1;
+        int rightSubArraySize = end - mid;
+        int[] leftSubArray = new int[leftSubArraySize];
+        int[] rightSubArray = new int[rightSubArraySize];
+        for (int i = 0; i < leftSubArraySize; i++) {
+            leftSubArray[i] = arr[start + i];//filling the new created array left
+        }
+        for (int i = 0; i < rightSubArraySize; i++) {
+            rightSubArray[i] = arr[mid + 1 + i];//filling the new created array right
+        }
+        // Merge the temporary arrays
+
+        // Initial indexes of first and second subarrays
+        int i = 0;
+        int j = 0;
+        int k = start;
+        while (i < leftSubArraySize && j < rightSubArraySize) {
+            if (leftSubArray[i] < rightSubArray[j]) {
+                arr[k] = leftSubArray[i]; //compare left subarray value with right one and increment those value whicch is lower
+                k++;
+                i++;
+            } else {
+                arr[k] = rightSubArray[j]; //compare right subarray value with left one and increment those value whicch is lower
+                k++;
+                j++;
+            }
+        }
+        while (i < leftSubArraySize) { //if left array is left behind
+            arr[k] = leftSubArray[i];
+            k++;
+            i++;
+        }
+        while (j < rightSubArraySize) { // if right array is left behind
+            arr[k] = rightSubArray[j];
+            k++;
+            j++;
+        }
+    }
+
+
     public static void main(String[] args) {
-        int arr[] = {5, 7, 4, 3, 1};
+        int arr[] = {5, 7, 4, 3, 1, 2};
         //bubbleSort(arr);
         //selectionSort(arr);
-        insertionSort(arr);
+        //insertionSort(arr);
+        int length = arr.length;
+        int start = 0;
+        int end = length - 1;
+        //int mid=(start+end)/2;
+        mergeSort(arr, start, end);
+
         System.out.println("array after sorting: ");
         for (int elements : arr) {
             System.out.print(elements);
