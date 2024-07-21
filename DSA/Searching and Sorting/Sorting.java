@@ -106,22 +106,48 @@ class Sorting {
             j++;
         }
     }
+    static void quickSort(int[] arr, int start, int end) {
+        if (start < end) {
+            int pivotIndex = partition(arr, start, end);
+            quickSort(arr, start, pivotIndex - 1);
+            quickSort(arr, pivotIndex + 1, end);
+        }
+    }
+    static int partition(int[] arr, int start, int end){
+        int lowerValueIndex=start-1;
+        int pivot=arr[end];
+        for (int i = start; i < end; i++) {
+            if(arr[i]<pivot){
+                lowerValueIndex++;
+                int temp=arr[lowerValueIndex];
+                arr[lowerValueIndex]=arr[i];
+                arr[i]=temp;
+            }
 
+        }
+        lowerValueIndex++;
+        int temp=arr[lowerValueIndex];
+        arr[lowerValueIndex]=pivot;
+        arr[end]=temp;
+        return lowerValueIndex;
+    }
 
     public static void main(String[] args) {
         int arr[] = {5, 7, 4, 3, 1, 2};
-        //bubbleSort(arr);
-        //selectionSort(arr);
-        //insertionSort(arr);
         int length = arr.length;
         int start = 0;
         int end = length - 1;
-        //int mid=(start+end)/2;
-        mergeSort(arr, start, end);
+        //bubbleSort(arr);
+        //selectionSort(arr);
+        //insertionSort(arr);
+        //mergeSort(arr, start, end);
+        quickSort(arr,start,end);
 
         System.out.println("array after sorting: ");
         for (int elements : arr) {
             System.out.print(elements);
         }
     }
+
+
 }
