@@ -1,0 +1,13 @@
+Collection interface:
+
+what is framework
+why we need,
+when collection framwork released,
+advantage of java collection framework,
+Hierarchy of the Collection Framework in Java,
+what is class and interface,
+Methods of the Collection Interface,
+Interfaces that Extend the Java Collections Interface,
+wrapper classes with arraylist,
+Classes Association with a Java List Interface,
+AbstractList, CopyOnWriteArrayList, and the AbstractSequentialList

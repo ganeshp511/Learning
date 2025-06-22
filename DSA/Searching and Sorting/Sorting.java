@@ -27,7 +27,7 @@ class Sorting {
             //arr[i] is current element
             int minIndex = i;
             for (int j = i + 1; j < arr.length; j++) {
-                if (arr[j] < arr[minIndex]) {
+                if (arr[j] < arr[minIndex]) {//
                     minIndex = j;
                     //Min element found
                 }
