@@ -1418,7 +1418,6 @@ Imagine two people editing the same sentence on a whiteboard at the same time �
        }
    }
    ```
-   It looks like you're asking about **`ReentrantLock`** in Java (possibly a typo: `restraintlock` → `reentrantlock`).
 
 ---
 
@@ -2158,11 +2157,6 @@ You use `Callable` when:
 * You are using thread pools with `ExecutorService` and want to get `Future` results
 
 If you just want to **fire-and-forget** a thread, `Runnable` is enough. But for **real-world concurrent programming**, especially in server or background computation contexts, `Callable` is usually more appropriate.
-
-Let me know if you'd like a hands-on example or a visualization of how `Future` works with `Callable`.
-
-Great follow-up! You understood `Callable`, and now you're asking the perfect next question:
-
 ---
 
 ### 🤔 Why Do We Need `Future` in Java Multithreading?
@@ -2319,6 +2313,19 @@ count.incrementAndGet(); // atomic
 Absolutely — building a **mini project of a Flight Aggregator** is a great way to apply Java multithreading, `Callable`, `Future`, and possibly even advanced features like `CompletableFuture` or `Executors`.
 
 ---
+
+Sure! Let's break down what this means:
+---
+
+### ✅ Summary
+
+* Daemon threads run in the background.
+* They do **not prevent the JVM from shutting down**.
+* Use daemon threads only for **non-critical tasks** like logging, cleanup, etc.
+* They are **terminated abruptly** when the JVM stops — so no guarantees they will finish their job.
+
+---
+
 
 ### ✈️ What is a Flight Aggregator?
 
@@ -2691,3 +2698,76 @@ Would you like:
 * A **cheat sheet** for quick reference?
 * A **project** using these utilities together (e.g., thread-safe booking system)?
 * To deep-dive into any one part like `CountDownLatch`, `ExecutorService`, or `AtomicInteger`?
+
+
+### 🔧 **What are Daemon Threads?**
+
+In Java, **daemon threads** are a special type of thread that runs in the **background** to support other threads (usually the main application threads). They are **not essential** to keep the application running.
+
+---
+
+### ⚙️ **"Don't block JVM shutdown"—What does that mean?**
+
+The **Java Virtual Machine (JVM)** keeps running **as long as there is at least one user (non-daemon) thread still alive**.
+
+Once **all non-daemon threads finish**, the **JVM will automatically exit**, even if **daemon threads are still running**.
+
+In other words:
+
+* **User thread running = JVM stays alive**
+* **Only daemon threads running = JVM shuts down**
+
+Daemon threads are **killed immediately** when the JVM shuts down — they are **not given a chance to finish their work**.
+
+---
+
+### 🧵 Example to illustrate
+
+```java
+public class Demo {
+    public static void main(String[] args) {
+        Thread daemon = new Thread(() -> {
+            while (true) {
+                System.out.println("Daemon is running...");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        });
+
+        daemon.setDaemon(true);  // Set thread as daemon
+        daemon.start();
+
+        try {
+            Thread.sleep(3000); // Main thread sleeps
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Main thread ends");
+    }
+}
+```
+
+**Output:**
+
+```
+Daemon is running...
+Daemon is running...
+Daemon is running...
+Main thread ends
+```
+
+Then the **JVM exits**, and the daemon thread is killed — even if it's still in the loop.
+
+Used for support tasks, like:
+
+Garbage collection (handled by JVM daemon threads)
+
+Logging
+
+Monitoring
+
+Caching
