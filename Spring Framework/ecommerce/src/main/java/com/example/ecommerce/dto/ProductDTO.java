@@ -1,5 +1,6 @@
 package com.example.ecommerce.dto;
 
+import com.example.ecommerce.entity.Product;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -152,5 +153,19 @@ public class ProductDTO {
      */
     public void setCategoryID(Long categoryID) {
         this.categoryID = categoryID;
+    }
+    public static ProductDTO buildDTOFromProduct(Product product){
+        ProductDTO productDTO = ProductDTO.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .imageUrl(product.getImageUrl())
+                .price(product.getPrice())
+                .stock(product.getStock())
+                .active(product.getActive())
+                .categoryId(product.getCategory().getId())
+                .companyId(product.getCompany().getId())
+                .description(product.getDescription())
+                .build();
+        return productDTO;
     }
 }

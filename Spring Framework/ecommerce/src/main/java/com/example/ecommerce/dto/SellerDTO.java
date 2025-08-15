@@ -1,5 +1,8 @@
 package com.example.ecommerce.dto;
 
+import lombok.Builder;
+
+@Builder
 public class SellerDTO {
     private String name;
     private String email;

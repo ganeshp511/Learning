@@ -1,10 +1,7 @@
 package com.example.ecommerce.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 
-
-public class CreateCompanyRequestDto {
+public class CreateRequestDto {
     private String name;
 
     public String getName() {

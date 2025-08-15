@@ -1,10 +1,7 @@
 package com.example.ecommerce.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 
-
-public class CreateCompanyResponseDto {
+public class CreateResponseDto {
     private Long id;
     private String errorCode;
     private String message;

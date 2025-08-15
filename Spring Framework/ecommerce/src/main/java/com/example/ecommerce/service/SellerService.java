@@ -1,6 +1,7 @@
 package com.example.ecommerce.service;
 
 import com.example.ecommerce.dto.CreateCompanyResponseDto;
+import com.example.ecommerce.dto.CreateResponseDto;
 import com.example.ecommerce.dto.ProductDTO;
 import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.Company;
@@ -33,7 +34,7 @@ public class SellerService {
      * @param productDTO Data for the product to be created
      * @return Response DTO with creation status and product ID
      */
-    public CreateCompanyResponseDto createProduct(ProductDTO productDTO){
+    public CreateResponseDto createProduct(ProductDTO productDTO){
         Product product=new Product();
         // Set product fields from DTO
         product.setName(productDTO.getName());
@@ -53,9 +54,9 @@ public class SellerService {
         product = productRepo.save(product);
 
         // Prepare response
-        CreateCompanyResponseDto createCompanyResponseDto=new CreateCompanyResponseDto();
-        createCompanyResponseDto.setMessage("Product created successfully");
-        createCompanyResponseDto.setId(product.getId());
-        return createCompanyResponseDto;
+        CreateResponseDto createResponseDto=new CreateResponseDto();
+        createResponseDto.setMessage("Product created successfully");
+        createResponseDto.setId(product.getId());
+        return createResponseDto;
     }
 }
