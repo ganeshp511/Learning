@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Collection Framework/Collection Framework.iml" filepath="$PROJECT_DIR$/Collection Framework/Collection Framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Date and Time API/Date and Time API.iml" filepath="$PROJECT_DIR$/Date and Time API/Date and Time API.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Functional Programming Java 8/Functional Programming Java 8.iml" filepath="$PROJECT_DIR$/Functional Programming Java 8/Functional Programming Java 8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java Utility Classes/Java Utility Classes.iml" filepath="$PROJECT_DIR$/Java Utility Classes/Java Utility Classes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Learning.iml" filepath="$PROJECT_DIR$/Learning.iml" />
+    </modules>
+  </component>
+</project>

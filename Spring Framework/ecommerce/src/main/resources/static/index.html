@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce Admin & Seller Frontend</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        form { border: 1px solid #ccc; padding: 20px; margin-bottom: 40px; border-radius: 8px; max-width: 400px; }
+        h2 { margin-top: 0; }
+        label { display: block; margin-top: 12px; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 4px; }
+        button { margin-top: 16px; padding: 10px 20px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Ecommerce Admin & Seller Portal</h1>
+
+    <form id="companyForm">
+        <h2>Create Company (Admin)</h2>
+        <label>Company Name<input type="text" name="name" required></label>
+        <label>Description<textarea name="description" required></textarea></label>
+        <button type="submit">Create Company</button>
+        <div id="companyMsg"></div>
+    </form>
+
+    <form id="sellerForm">
+        <h2>Create Seller (Admin)</h2>
+        <label>Seller Name<input type="text" name="name" required></label>
+        <label>Email<input type="email" name="email" required></label>
+        <label>Password<input type="password" name="password" required></label>
+        <button type="submit">Create Seller</button>
+        <div id="sellerMsg"></div>
+    </form>
+
+    <form id="productForm">
+        <h2>Add Product (Seller)</h2>
+        <label>Name<input type="text" name="name" required></label>
+        <label>Description<textarea name="description" required></textarea></label>
+        <label>Price<input type="number" name="price" step="0.01" required></label>
+        <label>Stock<input type="number" name="stock" required></label>
+        <label>Active<input type="checkbox" name="active"></label>
+        <label>Image URL<input type="text" name="imageURL"></label>
+        <label>Company ID<input type="number" name="companyID" required></label>
+        <label>Category ID<input type="number" name="categoryID" required></label>
+        <button type="submit">Add Product</button>
+        <div id="productMsg"></div>
+    </form>
+
+    <script>
+    // Helper to POST JSON
+    async function postData(url = '', data = {}) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        return response.json();
+    }
+
+    document.getElementById('companyForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = {
+            name: form.name.value,
+            description: form.description.value
+        };
+        try {
+            const res = await postData('/api/admin/company', data);
+            document.getElementById('companyMsg').innerHTML = '<span class="success">Company created!</span>';
+        } catch (err) {
+            document.getElementById('companyMsg').innerHTML = '<span class="error">Error creating company.</span>';
+        }
+    };
+
+    document.getElementById('sellerForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = {
+            name: form.name.value,
+            email: form.email.value,
+            password: form.password.value
+        };
+        try {
+            const res = await postData('/api/admin/seller', data);
+            document.getElementById('sellerMsg').innerHTML = '<span class="success">Seller created!</span>';
+        } catch (err) {
+            document.getElementById('sellerMsg').innerHTML = '<span class="error">Error creating seller.</span>';
+        }
+    };
+
+    document.getElementById('productForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = {
+            name: form.name.value,
+            description: form.description.value,
+            price: parseFloat(form.price.value),
+            stock: parseInt(form.stock.value),
+            active: form.active.checked,
+            imageURL: form.imageURL.value,
+            companyID: parseInt(form.companyID.value),
+            categoryID: parseInt(form.categoryID.value)
+        };
+        try {
+            const res = await postData('/api/seller/product', data);
+            document.getElementById('productMsg').innerHTML = '<span class="success">Product added!</span>';
+        } catch (err) {
+            document.getElementById('productMsg').innerHTML = '<span class="error">Error adding product.</span>';
+        }
+    };
+    </script>
+</body>
+</html>
